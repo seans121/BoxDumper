@@ -1,4 +1,4 @@
-# PCHex
+# Box Dumper
 First release of Box Dumper for www.boxviewer.xyz
 
 # Build
