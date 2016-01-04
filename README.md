@@ -19,3 +19,7 @@ Copy the content of the "built" folder in your "homebrew" or "3ds" folder.
 * Japanese and Korean characters do not work in the OT
 
 # Todo
+
+# Credits
+
+https://github.com/Strackeror/PCHex
