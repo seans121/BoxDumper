@@ -106,7 +106,7 @@ void 	uploadBoxesDisplay(t_stinf *state)
 	int req = 0;
 	int sv = 0;
 	char genderstr[3][8] = {"Male", "Female", "None"};
-	char hptable[17][113] = {"Normal", "Fighting", "Flying", "Poison", "Ground", "Rock", "Bug", "Ghost", "Steel", "Fire", "Water", "Grass", "Electric", "Psychic", "Ice", "Dragon", "Dark", "Fairy"};
+	char hptable[18][113] = {"Normal", "Fighting", "Flying", "Poison", "Ground", "Rock", "Bug", "Ghost", "Steel", "Fire", "Water", "Grass", "Electric", "Psychic", "Ice", "Dragon", "Dark", "Fairy"};
 	u8 hptype;
 	srand(time(NULL));
 	int session = rand();
