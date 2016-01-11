@@ -105,20 +105,19 @@ void 	uploadBoxesDisplay(t_stinf *state)
 	int currentBox = -1;
 	int req = 0;
 	int sv = 0;
+	//char tmp[50];
 	char genderstr[3][8] = {"Male", "Female", "None"};
 	char hptable[18][113] = {"Normal", "Fighting", "Flying", "Poison", "Ground", "Rock", "Bug", "Ghost", "Steel", "Fire", "Water", "Grass", "Electric", "Psychic", "Ice", "Dragon", "Dark", "Fairy"};
 	u8 hptype;
 	srand(time(NULL));
 	int session = rand();
-	
+
 	printf("Sending Pokemon to the server...\r\n");
 	strcpy(data, "{\"pokemon\":{");
 	
-	
-	for (int i = 0; i <= 931; i++) {
+	for (int i = 0; i != 930; i++) {
 		state->pkmSlot = i;
 		reloadPokemon(state);
-	  
 		if (state->pkm.pkx.species) {
 			uint32_t IV32 = state->pkm.pkx.individualValues;
 			sv = ((pkx->personalityID >> 16) ^ (pkx->personalityID & 0xFFFF)) >> 4;
@@ -197,43 +196,38 @@ void 	uploadBoxesDisplay(t_stinf *state)
 				(isEgg ? 1 : 0), // is egg 11
 				sv // SV 14
 			);
-				
+			
 			if (req == 5) {
 				snprintf(data, sizeof data, "http://www.boxviewer.xyz/data/upload/?sess=%d&data=%s", session, base64encode(data));
-				
 				httpcContext context;
 				httpcInit();	
 				httpcOpenContext(&context, data, 1);
 				http_download(&context);
 				httpcCloseContext(&context);
 				httpcExit();
-				
 				memset(data, 0, 255);
 				req = 0;
 			}
 			req++;
 			if (first) first = 0;
 		}
-	  
-		printf("%d%% complete\r", i * 100 / 931);
-	  
+		
+		printf("%d%% complete\r", i * 100 / 930);
+		
 	}
 	//getOTName(tmp, &state->pkm), // OT
-	strcat(data, "}, \"app\":[{\"ver\":\"1\"}]}}");
+	strcat(data, "}, \"app\":[{\"ver\":\"1.1\"}]}}");
 	snprintf(data, sizeof data, "http://www.boxviewer.xyz/data/upload/?sess=%d&data=%s", session, base64encode(data));
-	
 	httpcContext context;
 	httpcInit();	
 	httpcOpenContext(&context, data, 1);
 	http_download(&context);
 	httpcCloseContext(&context);
 	httpcExit();
-	
 	printf("100%% complete\n");
 	printf("Successfully sent %d Pokemon to the server\n", pokemon);
 	printf("\n--------------------------\n");
 	state->cont = 0;
-
 }
 
 void 	uploadBoxesInput(t_stinf *state)
